@@ -1,0 +1,13 @@
+﻿
+.status-bar.alert {
+    position: fixed;
+    bottom: 0px;
+    margin-bottom: 0px;
+    padding: 4px;
+    border-radius: 0px;
+    width: 100%;
+}
+
+.control-sidebar {
+    height: 100%;
+}

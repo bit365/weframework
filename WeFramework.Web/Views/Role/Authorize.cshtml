@@ -1,0 +1,100 @@
+﻿@model SelectList
+
+@{
+    ViewBag.Title = "角色授权";
+}
+@section Styles{
+    @Styles.Render("~/styles/icheck")
+}
+<section class="content-header">
+    <h1>
+        @ViewBag.RoleName<small>授权</small>
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            @using (Html.BeginForm())
+            {
+                <div class="box">
+                    <div class="box-header">
+                        <div class="btn-toolbar" role="toolbar" aria-label="btn-toolbar">
+                            <div class="btn-group" role="group" aria-label="btn-group">
+                                <button type="submit" class="btn btn-default" aria-label="Left Align">
+                                    <span class="fa fa-save" aria-hidden="true"></span> 保存提交
+                                </button>
+                                <a class="btn btn-default" aria-label="Left Align" href="@Url.Action("Index")">
+                                    <span class="ion-arrow-return-left" aria-hidden="true"></span> 返回
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-bordered table-hover">
+                            <tr>
+                                <th>
+                                    分类名称
+                                </th>
+                                <th>
+                                    权限配置
+                                </th>
+                                <th>
+                                    全选
+                                </th>
+                            </tr>
+
+                            @foreach (var group in Model.Items.OfType<SelectListItem>().GroupBy(sli => sli.Group))
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => group.Key.Name)
+                                    </td>
+                                    <td>
+                                        @foreach (var item in group)
+                                        {
+                                            <input type="checkbox" name="permissionIds" value="@item.Value" @(item.Selected ? Html.Raw("checked") : null) />
+                                            <span style="margin-right:1em;">@item.Text</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" class="check-all" name="check-all" />
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+@section Scripts{
+    @Scripts.Render("~/scripts/icheck")
+    <script>
+        $(function () {
+            $("table").on("click", ".check-all", function () {
+                alert($(this).prop("checked"));
+                if ($(this).prop("checked")) {
+                    $(this).parents("tr").find("input:checkbox").prop("checked", true);
+                }
+                else {
+                    $(this).parents("tr").find("input:checkbox").prop("checked", false);
+                }
+            });
+
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_minimal-green',
+                increaseArea: '20%'
+            });
+
+            $('input.check-all').on('ifChecked', function (event) {
+                $(this).parents("tr").find("input:checkbox").iCheck('check');
+            });
+
+            $('input.check-all').on('ifUnchecked', function (event) {
+                $(this).parents("tr").find("input:checkbox").iCheck('uncheck');
+            });
+        })
+    </script>
+}
