@@ -1,0 +1,67 @@
+﻿<header class="main-header">
+    <!-- Logo -->
+    <a href="." class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><i class="icon ion-waterdrop"></i></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg">零度微框架</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="setting"> <i class="fa fa-th"></i></a>
+                </li>
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="~/Content/Images/user-default-avatar.png" class="user-image" alt="User Image">
+                        <span class="hidden-xs">管理员</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header">
+                            <img src="~/Content/Images/user-default-avatar.png" class="img-circle" alt="User Image">
+                            <p>
+                                系统管理员
+                            </p>
+                        </li>
+                        <!-- Menu Body -->
+                        <li class="user-body">
+                            <div class="row">
+                                <div class="col-xs-4 text-center">
+                                    <a href="#">修改密码</a>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <a href="#">查看权限</a>
+                                </div>
+                                <div class="col-xs-4 text-center">
+                                    <a href="#">当前状态</a>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                @Html.ActionLink("用户设置", "ChangePassword", "User", null, new { @class = "btn btn-default btn-flat" })
+                            </div>
+                            <div class="pull-right">
+                                @Html.ActionLink("退出登录", "SignOut", "User", null, new { @class = "btn btn-default btn-flat" })
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Control Sidebar Toggle Button -->
+                <li>
+                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-meh-o"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

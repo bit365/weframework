@@ -1,0 +1,172 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model WeFramework.Core.Paging.IPagedList<#= "<" + ViewDataTypeName + ">" #>
+<#
+// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
+if(IsPartialView) {
+#>
+
+<#
+} else if(IsLayoutPageSelected) {
+#>
+
+@{
+    var ModelDisplayName = Html.DisplayNameForModel();
+    ViewBag.Title = String.Concat(ModelDisplayName, T("List"));
+<#
+if (!String.IsNullOrEmpty(LayoutPageFile)) {
+#>
+    Layout = "<#= LayoutPageFile#>";
+<#
+}
+#>
+}
+
+<#
+} else {
+#>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title><#= ViewName #></title>
+</head>
+<body>
+<#
+    PushIndent("    ");
+}
+#>
+<section class="content-header">
+    <h1>
+        @ModelDisplayName<small>@T("List")</small>
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    @using (Html.BeginForm(null, null, FormMethod.Get))
+                    {
+                        <div class="btn-toolbar" role="toolbar" aria-label="btn-toolbar">
+                            <div class="btn-group" role="group" aria-label="btn-group">
+                                <a class="btn btn-default" aria-label="Left Align" href="@Url.Action("Create")">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 创建
+                                </a>
+                                <button id="check-all" type="button" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-check" aria-hidden="true"></span> 全选
+                                </button>
+                                <button type="button" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除
+                                </button>
+                                <button type="button" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑
+                                </button>
+                            </div>
+                            <div class="input-group pull-right">
+                                <div class="input-group">
+                                    @Html.TextBox("keyword", "", new { @class = "form-control" })
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" autofocus aria-label="Left Align" type="submit">
+                                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="box-body">
+                    <table class="table table-bordered table-hover">
+						<tr>
+<#
+IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
+foreach (PropertyMetadata property in properties) {
+    if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
+#>
+<#
+        // We do not want to show any association properties for which there is
+        // no associated foreign key.
+        if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
+            continue;
+        }
+#>
+							<th>
+							    @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
+							</th>
+<#
+    }
+}
+#>
+							<th>相关操作</th>
+						</tr>
+
+						@foreach (var item in Model) {
+							<tr>
+<#
+foreach (PropertyMetadata property in properties) {
+    if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
+#>
+<#
+        // We do not want to show any association properties for which there is
+        // no associated foreign key.
+        if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
+            continue;
+        }
+#>
+								<td>
+								    @Html.DisplayFor(modelItem => <#= "item." + GetValueExpression(property) #>)
+								</td>
+<#
+    }
+}
+
+string pkName = GetPrimaryKeyName();
+if (pkName != null) {
+#>
+								<td>
+								    @Html.ActionLink(T("Edit"), "Edit", new { id=item.<#= pkName #> }) |
+								    @Html.ActionLink(T("Details"), "Details", new { id=item.<#= pkName #> }) |
+								    @Html.ActionLink(T("Delete"), "Delete", new { id=item.<#= pkName #> })
+								</td>
+<#
+} else {
+#>
+								<td>
+								    @Html.ActionLink(T("Edit"), "Edit", new { /* id=item.PrimaryKey */ }) |
+								    @Html.ActionLink(T("Details"), "Details", new { /* id=item.PrimaryKey */ }) |
+								    @Html.ActionLink(T("Delete"), "Delete", new { /* id=item.PrimaryKey */ })
+								</td>
+<#
+}
+#>
+							</tr>
+						}
+
+					</table>
+					@Html.Pager(Model, page => Url.FormParameters(Url.Action("<#= ViewName #>", new { page })))
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<#
+// The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
+#>
+<#
+if(!IsPartialView && !IsLayoutPageSelected) {
+    ClearIndent();
+#>
+</body>
+</html>
+<#
+}
+#>
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

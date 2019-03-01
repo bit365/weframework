@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/styles/bootstrap")
+    @Styles.Render("~/styles/adminlte")
+    @Styles.Render("~/styles/font-awesome")
+    @Styles.Render("~/styles/ionicons")
+    @Styles.Render("~/styles/dashboard")
+    <!--[if lt IE 9]>
+    @Scripts.Render("~/scripts/html5shiv")
+    @Scripts.Render("~/scripts/respond")
+    <![endif]-->
+    @RenderSection("styles", required: false)
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        @Html.Partial("_MainHeaderPartial")
+        @Html.Partial("_MainSidebarPartial")
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        @Html.Partial("_MainFooterPartial")
+        <aside class="control-sidebar control-sidebar-dark">
+            @RenderSection("controlSidebar", required: false)
+        </aside>
+        <div class="control-sidebar-bg"></div>
+    </div>
+    @Scripts.Render("~/scripts/jquery")
+    @Scripts.Render("~/scripts/bootstrap")
+    @Scripts.Render("~/scripts/fastclick")
+    @Scripts.Render("~/scripts/bootbox")
+    @Scripts.Render("~/scripts/adminlte")
+    @Scripts.Render("~/scripts/dashboard")
+    @RenderSection("scripts", required: false)
+    @StackExchange.Profiling.MiniProfiler.Current?.RenderIncludes()
+</body>
+</html>

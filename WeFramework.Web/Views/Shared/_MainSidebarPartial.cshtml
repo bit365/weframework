@@ -1,0 +1,68 @@
+﻿@using WeFramework.Web.Infrastructure
+@{
+    var navigates = NavigateHelper.GetCurrentUserActiveNavigates();
+    var headerNavigates = navigates.Where(nav => nav.ParentID == null && nav.Active && nav.Children.Any(cn => cn.Active)).OrderBy(nav => nav.SortOrder);
+}
+@helper RenderMenuItem(WeFramework.Web.Models.Navigates.NavigateModel navigate)
+{
+    <a href="@Url.Action(navigate.ActionName,navigate.ControllerName)">
+        <i class="@navigate.IconClassCode"></i>
+        <span>@navigate.Name</span>
+        @if (navigate.Children.Any(nav => nav.Active))
+        {
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        }
+    </a>
+}
+
+@helper RenderTreeViewMenu(WeFramework.Web.Models.Navigates.NavigateModel navigate)
+{
+    @RenderMenuItem(navigate)
+    if (navigate.Children.Any(nav => nav.Active))
+    {
+        <ul class="treeview-menu">
+            @foreach (var childNavigate in navigate.Children.Where(nav => nav.Active).OrderBy(nav => nav.SortOrder))
+            {
+                var navigateName = ViewBag.NavigateName ?? ViewBag.Title;
+                var isActive = NavigateHelper.ContainsNavigateName(childNavigate, navigateName);
+                <li @(isActive ? Html.Raw("class='active'") : null)>
+                    @RenderTreeViewMenu(childNavigate)
+                </li>
+            }
+        </ul>
+    }
+}
+
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+            @foreach (var headerNavigate in headerNavigates)
+            {
+                <li class="header">@headerNavigate.Name</li>
+
+                foreach (var treeViewNavigate in headerNavigate.Children.Where(nav => nav.Active).OrderBy(nav => nav.SortOrder))
+                {
+                    var navigateName = ViewBag.NavigateName ?? ViewBag.Title;
+                    var isActive = NavigateHelper.ContainsNavigateName(treeViewNavigate, navigateName);
+                    if (!treeViewNavigate.Children.Any())
+                    {
+                        <li @(isActive ? Html.Raw("class='active'") : null)>
+                            @RenderMenuItem(treeViewNavigate)
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="treeview @(isActive ? Html.Raw("active") : null)">
+                            @RenderTreeViewMenu(treeViewNavigate)
+                        </li>
+                    }
+                }
+            }
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

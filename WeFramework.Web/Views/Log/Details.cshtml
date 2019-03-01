@@ -1,0 +1,152 @@
+﻿@model WeFramework.Web.Models.Logging.LogModel
+@using Newtonsoft.Json
+@{
+    var ModelDisplayName = Html.DisplayNameForModel();
+    ViewBag.Title = String.Concat(ModelDisplayName, T("Details"));
+}
+@section Styles{
+    <style>
+        .table {
+            font-size: 12px;
+        }
+
+        pre {
+            white-space: pre-line;
+            border: none;
+            background-color: transparent;
+            padding: 0px 5px;
+        }
+
+        code {
+            padding: 0px;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1>
+        @ModelDisplayName<small>@T("Details")</small>
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="box">
+            <div class="box-header">
+                @Html.ActionLink(T("Back"), "Index", null, new { @class = "btn btn-default" })
+            </div>
+            <div class="box-body">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EventID)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.EventID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Priority)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.Priority)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Severity)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.Severity)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.Title)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Timestamp)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.Timestamp)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MachineName)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.MachineName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Categories)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.Categories)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AppDomainName)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.AppDomainName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProcessID)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.ProcessID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProcessName)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.ProcessName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ThreadId)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.ThreadId)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Message)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(model => model.Message)
+                        </td>
+                    </tr>
+                </table>
+                <table class="table table-bordered" style="background-color:#ffffcc">
+                    @if (!string.IsNullOrWhiteSpace(Model.FormattedMessage))
+                    {
+                        var logDetails = JsonConvert.DeserializeObject<dynamic>(Model.FormattedMessage);
+
+                        if (logDetails.ErrorMessages != null && !string.IsNullOrWhiteSpace(logDetails.ErrorMessages.ToString()))
+                        {
+                            <tr><th>ErrorMessage</th><td>@logDetails.ErrorMessages</td></tr>
+                        }
+                    }
+                </table>
+            </div>
+            <div class="box-footer">
+                @Html.ActionLink(T("Back"), "Index", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+</section>

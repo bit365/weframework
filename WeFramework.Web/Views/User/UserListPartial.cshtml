@@ -1,0 +1,46 @@
+﻿@model  WeFramework.Core.Paging.IPagedList<WeFramework.Web.Models.Users.UserModel>
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>
+            选择
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+        <th>相关操作</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <input type="checkbox" id="check" name="check" value="@item.ID" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.ActionLink("编辑", "Edit", new { id = item.ID })
+            </td>
+        </tr>
+    }
+</table>
+@Html.AjaxPager(Model, page => Url.Action("Index", new { page }), new AjaxOptions { UpdateTargetId = "pager" }, new PagerOptions { Display= PagerBehavior.IfNeeded })
