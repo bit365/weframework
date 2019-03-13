@@ -25,6 +25,3 @@
  测试用户与密码：admin
  
  更多功能与视频教程：https://video.xcode.me/download/weframework
- 
- ##简单灵活的认证授权系统
- ![avatar](https://video.xcode.me/images/weframework/login.png)
