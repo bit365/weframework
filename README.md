@@ -2,4 +2,26 @@
 
 ![avatar](https://video.xcode.me/images/weframework/architecture.jpg)
 
-更多功能与视频教程：https://video.xcode.me/download/weframework
+ 版本说明：2019年01月07日
+
+ 构建工具：Visual Studio 2017 + .NET Framework 4.6.1 + C#6.0
+
+ 更新说明：
+
+ 1、将项目引用的全部组件升级为最新版
+
+ 2、更改大量代码以兼容最新组件
+
+ 3、卸载大量无意义的第三方组件
+
+ 运行方法：
+
+ 1、将 Web 项目设置为启动项
+
+ 2、修改 Web.config 文件中的连接字符串
+
+ 3、启动即可运行。
+
+ 测试用户与密码：admin
+ 
+ 更多功能与视频教程：https://video.xcode.me/download/weframework
