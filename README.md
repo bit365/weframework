@@ -4,7 +4,7 @@
 
  版本说明：2019年04月22日
 
- 构建工具：Visual Studio 2019 + .NET Framework 4.6.1 + C#6.0
+ 构建工具：Visual Studio 2017 + .NET Framework 4.6.1 + C#6.0
 
  更新说明：
 
