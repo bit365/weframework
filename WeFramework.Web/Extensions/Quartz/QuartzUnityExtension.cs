@@ -22,7 +22,7 @@ namespace WeFramework.Web.Quartz
 
             this.Container.RegisterType<ISchedulerFactory, UnitySchedulerFactory>(new ContainerControlledLifetimeManager(), constructor);
 
-            this.Container.RegisterType<IScheduler>(new InjectionFactory(c => c.Resolve<ISchedulerFactory>().GetScheduler().Result));
+            this.Container.RegisterFactory<IScheduler>(c => c.Resolve<ISchedulerFactory>().GetScheduler().Result);
         }
     }
 }

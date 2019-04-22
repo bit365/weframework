@@ -35,13 +35,14 @@ namespace WeFramework.Web.Validator
                 return resourceManager.GetString(type.Name + memberInfo.Name + nameof(displayNameAttribute.DisplayName));
             };
 
-            //FluentValidation.Mvc.FluentValidationModelValidatorProvider.Configure();
+            ValidatorOptions.LanguageManager = new CustomLanguageManager();
+
 
             var validatorTypes = this.GetType().Assembly.GetTypes().Where(t => t.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IValidator<>)));
 
             foreach (Type instanceType in validatorTypes)
             {
-                container.RegisterType(typeof(IValidator<>), instanceType, instanceType.BaseType.GetGenericArguments().First().FullName, new ContainerControlledLifetimeManager());
+                container.RegisterType(typeof(IValidator), instanceType, instanceType.BaseType.GetGenericArguments().First().FullName, new ContainerControlledLifetimeManager());
             }
         }
     }

@@ -1,8 +1,7 @@
 using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
-using UnityMvc = Unity.AspNet.Mvc;
-using UnityWebApi = Unity.WebApi;
+using Unity.AspNet.Mvc;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(WeFramework.Web.App_Start.UnityWebActivator), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(WeFramework.Web.App_Start.UnityWebActivator), "Shutdown")]
@@ -18,14 +17,12 @@ namespace WeFramework.Web.App_Start
             var container = UnityConfig.GetConfiguredContainer();
 
             FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
-            FilterProviders.Providers.Add(new UnityMvc.UnityFilterAttributeFilterProvider(container));
+            FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(container));
 
-            DependencyResolver.SetResolver(new UnityMvc.UnityDependencyResolver(container));
-
-            GlobalConfiguration.Configuration.DependencyResolver = new UnityWebApi.UnityDependencyResolver(container);
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
             // TODO: Uncomment if you want to use PerRequestLifetimeManager
-            Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(UnityMvc.UnityPerRequestHttpModule));
+            Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(UnityPerRequestHttpModule));
         }
 
         /// <summary>Disposes the Unity container when the application is shut down.</summary>

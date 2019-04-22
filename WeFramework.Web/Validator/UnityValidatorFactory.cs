@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
-using Unity.Lifetime;
+using Microsoft.Practices.Unity;
 using System;
 using System.Linq;
 using Unity;
+using Unity.Resolution;
 using WeFramework.Core.Infrastructure;
 
 namespace WeFramework.Web.Validator
@@ -18,7 +19,7 @@ namespace WeFramework.Web.Validator
 
         public override IValidator CreateInstance(Type validatorType)
         {
-            return container.TryResolve(validatorType, validatorType.GetGenericArguments().First().FullName) as IValidator;
+            return container.TryResolve<IValidator>(validatorType.GetGenericArguments().First().FullName);
         }
     }
 }
