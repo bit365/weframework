@@ -190,8 +190,8 @@ namespace WeFramework.Web.Controllers
         public ActionResult ChangePassword(UserModel userModel)
         {
             User user = userService.GetUser(userModel.ID);
-            Mapper.Initialize(cfg => cfg.CreateMap<UserModel, User>().ForMember(m => m.CreateDate, p => p.Ignore()).ForMember(m => m.Password, p => p.Ignore()));
-            Mapper.Map(userModel, user);
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<UserModel, User>().ForMember(m => m.CreateDate, p => p.Ignore()).ForMember(m => m.Password, p => p.Ignore()));
+            config.CreateMapper().Map(userModel, user);
 
             if (userModel.Password != DateTime.Now.ToShortDateString())
             {

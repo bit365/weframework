@@ -19,7 +19,7 @@ namespace WeFramework.Web.Infrastructure
 
             container.RegisterInstance<IConfigurationProvider>(config);
 
-            container.RegisterInstance<IMapper>(config.CreateMapper());
+            container.RegisterInstance(config.CreateMapper());
         }
     }
 }
