@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WeFramework.Core.Domain.Navigates;
+using WeFramework.Core.Domain.Products;
 using WeFramework.Core.Domain.Security;
 using WeFramework.Core.Domain.Users;
 using WeFramework.Core.Infrastructure;
 using WeFramework.Data;
 using WeFramework.Service.Navigates;
+using WeFramework.Service.Products;
 using WeFramework.Service.Security;
 using WeFramework.Service.Users;
 using WeFramework.Web.Infrastructure;
@@ -151,6 +153,11 @@ namespace WeFramework.Web.App_Start
 
                 navigateService.CreateNavigate(bllServiceNavigate);
             }
+
+            var productService = ServiceContainer.Resolve<IProductService>();
+
+            productService.CreteProduct(new Product { Name = "零度课堂C#教程", Price = 88.50 });
+            productService.CreteProduct(new Product { Name = "零度课堂EfCore教程", Price = 20.50 });
         }
     }
 }

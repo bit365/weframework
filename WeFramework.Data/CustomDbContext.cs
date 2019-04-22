@@ -38,5 +38,7 @@ namespace WeFramework.Data
             modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
         }
+
+        public System.Data.Entity.DbSet<WeFramework.Core.Domain.Products.Product> Products { get; set; }
     }
 }
