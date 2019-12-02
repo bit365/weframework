@@ -24,4 +24,4 @@
 
  测试用户与密码：admin
  
- 更多功能与视频教程：https://www.xcode.me/business/weframework
+ 更多功能与视频教程：https://www.xcode.me/business/we-framework
