@@ -209,8 +209,13 @@ namespace WeFramework.Web.Core.Paging
         ///<param name = "generatePageUrl">A function that takes the page number  of the desired page and returns a URL-string that will load that page.</param>
         ///<param name = "options">Formatting options.</param>
         ///<returns>Outputs the paging control HTML.</returns>
-        public static HtmlString Pager(this System.Web.Mvc.HtmlHelper htmlHelper, IPagedList list, Func<int, string> generatePageUrl, PagerOptions options)
+        public static HtmlString Pager(this HtmlHelper htmlHelper, IPagedList list, Func<int, string> generatePageUrl, PagerOptions options)
         {
+            if (htmlHelper is null)
+            {
+                throw new ArgumentNullException(nameof(htmlHelper));
+            }
+
             if (options.Display == PagerBehavior.Never || (options.Display == PagerBehavior.IfNeeded && list.PageCount <= 1))
             {
                 return null;
@@ -388,8 +393,13 @@ namespace WeFramework.Web.Core.Paging
         ///<param name="formAction">The URL this form should submit the GET request to.</param>
         ///<param name="options">Formatting options.</param>
         ///<returns>Outputs the "Go To Page:" form HTML.</returns>
-        public static HtmlString PagedListGoToPageForm(this System.Web.Mvc.HtmlHelper html, IPagedList list, string formAction, GoToPageOptions options)
+        public static HtmlString PagedListGoToPageForm(this HtmlHelper html, IPagedList list, string formAction, GoToPageOptions options)
         {
+            if (html is null)
+            {
+                throw new ArgumentNullException(nameof(html));
+            }
+
             var form = new TagBuilder("form");
             form.AddCssClass("PagedList-goToPage");
             form.Attributes.Add("action", formAction);

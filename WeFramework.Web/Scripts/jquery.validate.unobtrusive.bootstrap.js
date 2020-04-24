@@ -72,7 +72,7 @@
 
 			if (validator)
 			{
-			    validator.settings.errorClass += ' text-danger';
+				validator.settings.errorClass += ' text-danger';
 				var errorPlacementBase = validator.settings.errorPlacement;
 				var successBase = validator.settings.success;
 

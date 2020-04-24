@@ -3,7 +3,7 @@ using Senparc.NeuChar.Entities;
 
 namespace WeFramework.Web.Extensions.WeChat
 {
-    public class CustomMessageContext : MessageContext<IRequestMessageBase, IResponseMessageBase>
+    public class CustomMessageContext : Senparc.Weixin.MP.MessageContexts.DefaultMpMessageContext
     {
 
     }

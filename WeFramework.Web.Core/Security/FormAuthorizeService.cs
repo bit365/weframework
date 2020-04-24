@@ -24,7 +24,7 @@ namespace WeFramework.Web.Core.Security
             {
                 FormsIdentity formIdentity = (FormsIdentity)httpContext.User.Identity;
                 string userName = formIdentity.Ticket.Name;
-                string userData = formIdentity.Ticket.UserData;
+                _ = formIdentity.Ticket.UserData;
 
                 if (!string.IsNullOrWhiteSpace(userName))
                 {

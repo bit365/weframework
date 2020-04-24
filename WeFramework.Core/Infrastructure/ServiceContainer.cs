@@ -7,7 +7,7 @@ namespace WeFramework.Core.Infrastructure
 {
     public static class ServiceContainer
     {
-        static Lazy<IUnityContainer> Container = new Lazy<IUnityContainer>(() => new UnityContainer());
+        static readonly Lazy<IUnityContainer> Container = new Lazy<IUnityContainer>(() => new UnityContainer());
 
         public static IUnityContainer Current { get { return Container.Value; } }
 

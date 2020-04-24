@@ -1,5 +1,4 @@
-﻿
-//状态栏消息显示扩展函数
+﻿//状态栏消息显示扩展函数
 
 bootbox.message = function (alertClassName, iconClassName, message) {
     var template = '<div class="alert alert-dismissible status-bar"><i class="icon fa"></i><span></span></div>';

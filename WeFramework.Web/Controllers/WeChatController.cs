@@ -9,6 +9,8 @@ using Senparc.Weixin.MP.MvcExtension;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WeFramework.Core.Domain.Users;
@@ -39,7 +41,7 @@ namespace WeFramework.Web.Controllers
 
         private static readonly string appSecret = WeChatConfigManager.Settings["appSecret"];
 
-        public WeChatController(IUserService userService,  IEntityPermissionService entityPermissionService, IEncryptionService encryptionService)
+        public WeChatController(IUserService userService, IEntityPermissionService entityPermissionService, IEncryptionService encryptionService)
         {
             this.userService = userService;
             this.entityPermissionService = entityPermissionService;
@@ -58,7 +60,7 @@ namespace WeFramework.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Handler(PostModel postModel)
+        public async Task<ActionResult> Handler(PostModel postModel)
         {
             if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, token))
             {
@@ -70,7 +72,7 @@ namespace WeFramework.Web.Controllers
 
             var messageHandler = new CustomMessageHandler(Request.InputStream, postModel);
 
-            messageHandler.Execute();
+            await messageHandler.ExecuteAsync(CancellationToken.None);
 
             return new FixWeixinBugWeixinResult(messageHandler);
         }
@@ -97,7 +99,7 @@ namespace WeFramework.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult BindingUser(LoginModel model, string weChatSessionID)
+        public async Task<ActionResult> BindingUser(LoginModel model, string weChatSessionID)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +107,7 @@ namespace WeFramework.Web.Controllers
                 {
                     string openId = encryptionService.Decrypt(weChatSessionID, appSecret);
 
-                    AccessTokenContainer.Register(appId, appSecret);
+                  await  AccessTokenContainer.RegisterAsync(appId, appSecret);
                     var memberToGroupResult = GroupsApi.MemberUpdate(appId, openId, 100);
 
                     if (memberToGroupResult.errcode == 0)

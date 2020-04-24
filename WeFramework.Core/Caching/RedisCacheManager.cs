@@ -50,7 +50,7 @@ namespace WeFramework.Core.Caching
             }
             else
             {
-                return default(T);
+                return default;
             }
         }
 
@@ -150,7 +150,7 @@ namespace WeFramework.Core.Caching
         {
             if (serializedObject == null)
             {
-                return default(T);
+                return default;
             }
 
             var jsonString = Encoding.UTF8.GetString(serializedObject);
