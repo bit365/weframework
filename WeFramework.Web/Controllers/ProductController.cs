@@ -57,5 +57,15 @@ namespace WeFramework.Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public ActionResult Export()
+        {
+            IEnumerable<Product> products = productService.GetProducts();
+
+            var productModels = mapper.Map<IEnumerable<Product>, IEnumerable<ProductModel>>(products);
+
+            return new ExcelFileResult<ProductModel>(productModels);
+        }
     }
 }

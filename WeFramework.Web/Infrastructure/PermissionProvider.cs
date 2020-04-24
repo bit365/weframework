@@ -59,6 +59,7 @@ namespace WeFramework.Web.Infrastructure
         #region 产品相关权限记录
         public static readonly Permission ProductIndex = new Permission { Name = "ProductIndex", Category = "产品管理", Description = "查询" };
         public static readonly Permission ProductCreate = new Permission { Name = "ProductCreate", Category = "产品管理", Description = "创建" };
+        public static readonly Permission ProductExport = new Permission { Name = "ProductExport", Category = "产品管理", Description = "导出" };
 
         #endregion
 
