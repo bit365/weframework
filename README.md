@@ -2,9 +2,9 @@
 
 ![avatar](https://www.xcode.me/img/weframework/architecture.jpg)
 
- 版本说明：2019年04月22日
+ 版本说明：2020年04月24日
 
- 构建工具：Visual Studio 2017 + .NET Framework 4.6.1 + C#6.0
+ 构建工具：Visual Studio 2019 + .NET Framework 4.8 + C# 8.0
 
  更新说明：
 
@@ -22,6 +22,6 @@
 
  3、启动即可运行。
 
- 测试用户与密码：admin
+ 测试用户与密码均为：admin
  
  更多功能与视频教程：https://www.xcode.me/business/we-framework
