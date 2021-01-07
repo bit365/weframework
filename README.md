@@ -25,5 +25,6 @@
  测试用户与密码均为：admin
  
  更多功能与视频教程：https://www.xcode.me/business/we-framework
+ 
+ 新版零度框架请访问：https://github.com/dreamdocker/zerostack
 
- 基于.NET5构建的新版零度框架：https://github.com/dreamdocker/zerostack
